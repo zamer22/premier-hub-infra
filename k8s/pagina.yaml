@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend
+  name: pagina
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: frontend
+      app: pagina
   template:
     metadata:
       labels:
-        app: frontend
+        app: pagina
     spec:
       containers:
-        - name: frontend
-          image: premier-frontend:latest
+        - name: pagina
+          image: premier-pagina:latest
           imagePullPolicy: Never
           ports:
             - containerPort: 80
@@ -22,11 +22,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: frontend
+  name: pagina
 spec:
   type: NodePort
   selector:
-    app: frontend
+    app: pagina
   ports:
     - port: 80
       targetPort: 80
