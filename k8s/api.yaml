@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-principal
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-principal
+  template:
+    metadata:
+      labels:
+        app: api-principal
+    spec:
+      dnsPolicy: "None"
+      dnsConfig:
+        nameservers:
+          - 8.8.8.8
+          - 1.1.1.1
+      containers:
+        - name: api-principal
+          image: premier-api:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 4000
+          env:
+            - name: PORT
+              value: "4000"
+            - name: DB_HOST
+              value: "192.168.1.24"
+            - name: DB_PORT
+              value: "54322"
+            - name: DB_PASSWORD
+              value: "orangutan1grande"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-principal
+spec:
+  type: NodePort
+  selector:
+    app: api-principal
+  ports:
+    - port: 4000
+      targetPort: 4000
+      nodePort: 30400
