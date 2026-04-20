@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pagina
+  namespace: prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pagina
+  template:
+    metadata:
+      labels:
+        app: pagina
+    spec:
+      containers:
+      - name: pagina
+        image: premier-pagina:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 80
