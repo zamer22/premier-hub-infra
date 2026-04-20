@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+  namespace: prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+      - name: api
+        image: premier-api:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 4000
+        env:
+        - name: PORT
+          value: "4000"
+        - name: NODE_ENV
+          value: "production"
+        - name: CORS_ORIGIN
+          value: "https://app.zamer-o.com"
+        - name: SUPABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: api-secrets
+              key: SUPABASE_URL
+        - name: SUPABASE_SERVICE_KEY
+          valueFrom:
+            secretKeyRef:
+              name: api-secrets
+              key: SUPABASE_SERVICE_KEY
+        - name: APIFOOTBALL_KEY
+          valueFrom:
+            secretKeyRef:
+              name: api-secrets
+              key: APIFOOTBALL_KEY
+        - name: NEWS_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: api-secrets
+              key: NEWS_API_KEY
+        - name: COOKIE_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: api-secrets
+              key: COOKIE_SECRET
+      dnsPolicy: None
+      dnsConfig:
+        nameservers:
+        - 8.8.8.8
+        - 1.1.1.1
