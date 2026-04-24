@@ -26,6 +26,12 @@ spec:
           value: "preprod"
         - name: CORS_ORIGIN
           value: "https://app-preprod.zamer-o.com"
+        - name: APIFOOTBALL_BASE_URL
+          value: "https://v3.football.api-sports.io"
+        - name: APIFOOTBALL_LEAGUE_ID
+          value: "39"
+        - name: APIFOOTBALL_SEASON
+          value: "2025"
         - name: SUPABASE_URL
           valueFrom:
             secretKeyRef:
