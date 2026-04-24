@@ -1,0 +1,23 @@
+name: Apply K8s Manifests
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  apply:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Apply prod manifests
+        run: |
+          kubectl apply -f k8s/prod/
+          kubectl rollout status deployment/api -n prod --timeout=120s
+          kubectl rollout status deployment/pagina -n prod --timeout=120s
+
+      - name: Apply preprod manifests
+        run: |
+          kubectl apply -f k8s/preprod/
+          kubectl rollout status deployment/api -n preprod --timeout=120s
+          kubectl rollout status deployment/pagina -n preprod --timeout=120s
