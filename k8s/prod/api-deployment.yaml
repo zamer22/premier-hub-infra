@@ -57,6 +57,8 @@ spec:
             secretKeyRef:
               name: api-secrets
               key: COOKIE_SECRET
+        - name: ML_SERVICE_URL
+          value: "http://ml.prod.svc.cluster.local:8080"
       dnsPolicy: None
       dnsConfig:
         nameservers:
