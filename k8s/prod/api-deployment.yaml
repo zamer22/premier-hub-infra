@@ -57,8 +57,11 @@ spec:
             secretKeyRef:
               name: api-secrets
               key: COOKIE_SECRET
+        # ClusterIP fija del service ml — dnsPolicy:None impide resolver el nombre DNS interno
         - name: ML_SERVICE_URL
-          value: "http://ml.prod.svc.cluster.local:8080"
+          value: "http://10.43.53.230:8080"
+        - name: SUPABASE_PUBLIC_URL
+          value: "https://supabase.zamer-o.com"
       dnsPolicy: None
       dnsConfig:
         nameservers:

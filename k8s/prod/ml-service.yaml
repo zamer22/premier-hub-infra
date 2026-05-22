@@ -5,6 +5,8 @@ metadata:
   namespace: prod
 spec:
   type: ClusterIP
+  # IP fija — el backend la usa directo en ML_SERVICE_URL porque dnsPolicy:None no resuelve nombres del cluster
+  clusterIP: 10.43.53.230
   selector:
     app: ml
   ports:
